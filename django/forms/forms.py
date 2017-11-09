@@ -75,6 +75,7 @@ class BaseForm(object):
     # information. Any improvements to the form API should be made to *this*
     # class, not to the Form class.
     field_order = None
+    prefix = None
 
     def __init__(self, data=None, files=None, auto_id='id_%s', prefix=None,
                  initial=None, error_class=ErrorList, label_suffix=None,
@@ -100,6 +101,8 @@ class BaseForm(object):
         self.fields = copy.deepcopy(self.base_fields)
         self._bound_fields_cache = {}
         self.order_fields(self.field_order if field_order is None else field_order)
+        if prefix is not None:
+            self.prefix = prefix
 
     def order_fields(self, field_order):
         """
